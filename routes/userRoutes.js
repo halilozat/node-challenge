@@ -1,15 +1,7 @@
 const router = require('express').Router()
-const User = require('../models/User')
+const userController = require('../controllers/userController')
 
-router.get('/', (req, res) => {
-    User.find().sort({ createdAt: -1 })
-        .then((result) => {
-            res.render('user', { users: result })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-})
+router.get('/', userController.getAll)
 
 
 module.exports = router

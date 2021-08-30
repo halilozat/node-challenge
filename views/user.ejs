@@ -12,31 +12,37 @@
 <body>
     <%-include('./inc/nav')%>
 
+        <h3 style="text-align: center; border-bottom: 3px solid #000;" >
+            Kullanıcı: <%= user.username %> & Admin: <%= user.isAdmin %>
+        </h3>
+
 
         <% if(user.isAdmin){ %>
 
             <section>
                 <h1 style="text-align: center;">Kullanıcılar</h1>
                 <br>
+                
                 <ul>
                     <% users.forEach(user=> {%>
-                        
+
                         <li style="text-align: center; list-style: none;">
-                            <hr>
-                            <h3 href="#">Username : <%=user.username%></h3>
-                            <h3 href="#">isAdmin? : <%=user.isAdmin%></h3>
+                            <h3 href="#">Username : <%=user.username%>
+                            </h3>
+                            <h3 href="#">isAdmin? : <%=user.isAdmin%>
+                            </h3>
                             <hr>
                         </li>
-    
+
                         <% }) %>
-    
+
                 </ul>
             </section>
 
             <% }else { %>
                 <section>
                     <h1 style="text-align: center;">Kullanıcı</h1>
-    
+
                     <hr>
                     <h3 style="text-align: center;">
                         username: <%= user.username %>
@@ -44,11 +50,11 @@
                     <h3 style="text-align: center;">
                         isAdmin: <%= user.isAdmin %>
                     </h3>
-    
+
                     <br>
                 </section>
 
-            <% } %> 
+                <% } %>
 
 </body>
 
