@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Node Challenge</title>
+</head>
+
+<body>
+    <%-include('./inc/nav')%>
+
+
+        <% if(user.isAdmin){ %>
+
+            <section>
+                <h1 style="text-align: center;">Kullanıcılar</h1>
+                <br>
+                <ul>
+                    <% users.forEach(user=> {%>
+                        
+                        <li style="text-align: center; list-style: none;">
+                            <hr>
+                            <h3 href="#">Username : <%=user.username%></h3>
+                            <h3 href="#">isAdmin? : <%=user.isAdmin%></h3>
+                            <hr>
+                        </li>
+    
+                        <% }) %>
+    
+                </ul>
+            </section>
+
+            <% }else { %>
+                <section>
+                    <h1 style="text-align: center;">Kullanıcı</h1>
+    
+                    <hr>
+                    <h3 style="text-align: center;">
+                        username: <%= user.username %>
+                    </h3>
+                    <h3 style="text-align: center;">
+                        isAdmin: <%= user.isAdmin %>
+                    </h3>
+    
+                    <br>
+                </section>
+
+            <% } %> 
+
+</body>
+
+</html>
