@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const User = require('./models/User')
+const authRoutes = require('./routes/authRoutes')
 
 const app = express()
 
@@ -14,11 +15,12 @@ mongoose.connect('mongodb://127.0.0.1/nodechallenge_database', {
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
 
 app.get('/', (req, res) => {
-    User.find().sort({createdAt: -1})
+    User.find().sort({ createdAt: -1 })
         .then((result) => {
             res.render('index', { users: result })
         })
@@ -27,44 +29,7 @@ app.get('/', (req, res) => {
         })
 })
 
-app.get('/login', (req, res) => {
-    res.render('login')
-})
-
-
-// app.get('/add', (req, res) => {
-//     const user = new User({
-//         username: 'halil',
-//         email: 'halil@gmail.com',
-//         password: '123456',
-//         isAdmin: 'true'
-//     })
-//     user.save()
-//         .then((result) => {
-//             res.send(result)
-//         })
-//         .catch((error) => console.log(error))
-// })
-
-// app.get('/all', (req, res) => {
-//     User.find()
-//         .then((result) => {
-//             res.send(result)
-//         })
-//         .catch((error) => {
-//             console.log(error)
-//         })
-// })
-
-// app.get('/getSingle', (req, res) => {
-//     User.findById('612cf0d31eca5c31b31a24a5')
-//         .then((result) => {
-//             res.send(result)
-//         })
-//         .catch((error) => {
-//             console.log(error)
-//         })
-// })
+app.use('/', authRoutes)
 
 
 app.use((req, res) => {
