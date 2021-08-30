@@ -17,7 +17,21 @@ const UserSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-UserSchema.pre('save', async function(next){
+UserSchema.statics.login = async function (username, password) {
+    const user = await this.findOne({username})
+    if (user) {
+        const auth = await bcrypt.compare(password, user.password)
+        if (auth) {
+            return user
+        } else {
+            throw Error('Password is wrong!')
+        }
+    } else {
+        throw Error('User not found!')
+    }
+}
+
+UserSchema.pre('save', async function (next) {
     const salt = await bcrypt.genSalt()
     this.password = await bcrypt.hash(this.password, salt)
     next()
