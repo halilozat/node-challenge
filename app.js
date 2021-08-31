@@ -5,14 +5,15 @@ const cookieParser = require('cookie-parser')
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
 const { requireAuth, checkUser } = require('./middlewares/authMiddleware')
+const env = require('dotenv')
 
 const app = express()
 
-mongoose.connect('mongodb://127.0.0.1/nodechallenge_database', {
+mongoose.connect(process.env.DATABASE_LOCAL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then((result) => app.listen(3000))
+    .then((result) => app.listen(process.env.PORT || 5000))
     .catch((error) => console.log(error))
 
 
